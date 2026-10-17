@@ -1,4 +1,4 @@
-import type { HttpTypes } from "@medusajs/framework/types"
+import type { HttpTypes } from "@medusajs/types"
 
 export type FeedOptions = {
   enabled: boolean

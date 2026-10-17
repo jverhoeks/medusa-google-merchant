@@ -8,7 +8,7 @@ const database = new URL(process.env.MERCHANT_TEST_DATABASE_URL || "postgres://p
 assert(["localhost", "127.0.0.1", "[::1]", "boticadoro-usage-postgres"].includes(database.hostname), "Use an isolated local database host")
 assert(/^\/merchant_plugin_[a-z0-9_]+$/.test(database.pathname), "Database name must start merchant_plugin_")
 const root = process.cwd()
-const archive = readdirSync(root).find(name => name.endsWith(".tgz"))
+const archive = `jverhoeks-medusa-google-merchant-${JSON.parse(readFileSync(join(root, "package.json"))).version}.tgz`
 assert(archive, "Run npm pack first")
 const installed = join(root, "node_modules/@jverhoeks/medusa-google-merchant")
 mkdirSync(installed, { recursive: true })

@@ -6,7 +6,7 @@ PR and release. Creating this repository does not deploy or change live product
 metadata. No production data or secret configuration is included.
 
 1. Build/pack a reviewed plugin revision and pin the resulting package version in
-   the application dependency lockfile. Archive/version the package for CI; do not
+   the application dependency lockfile (full plugin in backend, feed-only companion in storefront). Archive/version the package for CI; do not
    rely on an untracked local tarball for deployment.
 2. Register the plugin in `externalFeed: true` mode with Botica Doro's environment configuration: NL,
    EUR, Dutch, title/description, `collectionHandle: "cadeausets"`,

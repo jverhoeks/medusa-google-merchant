@@ -1,4 +1,4 @@
-import type { HttpTypes } from "@medusajs/framework/types"
+import type { HttpTypes } from "@medusajs/types"
 import type { FeedOptions } from "./options"
 import { selected } from "./options"
 

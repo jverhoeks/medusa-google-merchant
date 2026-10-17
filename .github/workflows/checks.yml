@@ -30,6 +30,7 @@ jobs:
       - run: npm test
       - run: npm run typecheck
       - run: npm pack
+      - run: npm run pack:feed
       - name: Exercise packaged plugin in isolated Medusa
         run: node scripts/smoke-plugin.cjs
         env:

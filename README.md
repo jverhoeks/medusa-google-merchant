@@ -6,7 +6,7 @@ are required. It does not create ads, submit products automatically, or guarante
 Google approval.
 
 Built and tested against **Medusa 2.21.2**, Node.js 22 and npm 11.19.0. Initial
-version 0.1.0-rc.1 is pre-release; support for other Medusa versions is not claimed.
+version 0.1.0-rc.2 is pre-release; support for other Medusa versions is not claimed.
 
 ## Install
 
@@ -18,6 +18,7 @@ npm ci
 npm test
 npm run typecheck
 npm pack
+npm run pack:feed
 # Optional integration check against a fresh isolated PostgreSQL database:
 # MERCHANT_TEST_DATABASE_URL=postgres://postgres:fixture_only@localhost:5432/merchant_plugin_test?sslmode=disable node scripts/smoke-plugin.cjs
 ```
@@ -26,7 +27,7 @@ In the Medusa backend project, install the resulting tarball (or an eventual
 published version), then register it:
 
 ```sh
-npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0-rc.1.tgz
+npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0-rc.2.tgz
 ```
 
 ```ts
@@ -87,12 +88,13 @@ When the storefront owns the public feed, register the backend plugin with
 required in this mode. Admin links to the storefront feed and reports its state
 as externally managed; the backend XML endpoint stays disabled.
 
-Install the same pinned package in the storefront and import `loadMerchantFeed`
-from `@jverhoeks/medusa-google-merchant/loader`, with validated market options from
-`@jverhoeks/medusa-google-merchant/options`. The storefront supplies its own
+Install the matching `@jverhoeks/medusa-google-merchant-feed` tarball in the
+storefront. Import `loadMerchantFeed` from its `/loader` export, the serializer
+from `/core`, and validated market options from `/options`. This companion is
+built from the same source but has no React, admin UI or backend runtime peers. The storefront supplies its own
 anonymous backend URL/publishable key and retains enable/preview guards. Never
-pass visitor authentication or cookies. Core feed imports support React 19
-storefronts; the admin extension is tested in Medusa's React 18 dashboard.
+pass visitor authentication or cookies. The feed-only package supports React 19 storefronts; the full plugin remains
+for Medusa's React 18 admin. Do not install the full plugin into a storefront.
 
 ## Feed rules
 

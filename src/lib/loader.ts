@@ -1,4 +1,4 @@
-import type { HttpTypes } from "@medusajs/framework/types"
+import type { HttpTypes } from "@medusajs/types"
 import { merchantFeed, type MerchantBundle } from "./feed"
 import { selected, type FeedOptions } from "./options"
 
