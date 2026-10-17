@@ -14,7 +14,7 @@ const GoogleMerchantPage = () => {
     {isPending && <Text>Loading configuration…</Text>}
     {error && <Text role="alert">Could not load feed configuration.</Text>}
     {data && <>
-      <Text>Feed: {data.enabled ? "enabled" : "disabled"}. Market: {data.country.toUpperCase()}, {data.currency.toUpperCase()}, language {data.locale}.</Text>
+      <Text>Feed: {data.feed_managed_externally ? "managed by the storefront" : data.enabled ? "enabled" : "disabled"}. Market: {data.country.toUpperCase()}, {data.currency.toUpperCase()}, language {data.locale}.</Text>
       <a className="text-ui-fg-interactive break-all" href={data.feed_url} target="_blank" rel="noreferrer">{data.feed_url}</a>
       <Text>Open a product and use its Google Merchant switch to select it. Selection mode: {data.selection_mode}. {data.collection_handle ? `Collection restriction: ${data.collection_handle}.` : ""} {data.bundles_only ? "Only linked fixed bundles are exported." : "Only single-variant offers are supported in this release."}</Text>
       <ol className="list-decimal pl-5 space-y-2">

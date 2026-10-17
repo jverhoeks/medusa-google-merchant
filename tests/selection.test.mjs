@@ -115,3 +115,10 @@ test("bundle adapter resolves actual links and never falls back when components 
   assert.doesNotMatch(await loadMerchantFeed(options, fetcher), /<item>/)
   assert.equal(requests.filter(url => url.pathname === options.bundleEndpoint).length, 2)
 })
+
+test("external storefront mode needs no backend key and never hosts a second feed", () => {
+  const options = parseOptions({ externalFeed: true, enabled: true, storefrontUrl: "https://shop.example" })
+  assert.equal(options.publishableKey, "")
+  assert.equal(feedEnabled(options), false)
+  assert.throws(() => parseOptions({ externalFeed: "true", storefrontUrl: "https://shop.example" }))
+})

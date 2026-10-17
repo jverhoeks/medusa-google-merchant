@@ -29,7 +29,7 @@ const GoogleMerchantSelection = ({ data: product }: DetailWidgetProps<AdminProdu
     </div>
     <Text>Selection does not guarantee export or Google approval. Published availability, price, identifiers, collection restrictions and feed validation still apply.</Text>
     {product.metadata?.google_merchant_exclude === true && <Text>The legacy google_merchant_exclude flag blocks this product. Remove that flag in product metadata before enabling it.</Text>}
-    {settings.data && !settings.data.enabled && <Text>The feed is disabled for this environment.</Text>}
+    {settings.data && settings.data.enabled === false && <Text>The feed is disabled for this environment.</Text>}
     {(settings.error || update.error) && <Text role="alert">Could not load or save Google Merchant selection. Please retry.</Text>}
   </Container>
 }

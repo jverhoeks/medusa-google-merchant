@@ -4,7 +4,8 @@ export const sdk = new Medusa({
   auth: { type: "session" },
 })
 export type MerchantSettings = {
-  enabled: boolean
+  enabled: boolean | null
+  feed_managed_externally: boolean
   feed_url: string
   country: string
   currency: string

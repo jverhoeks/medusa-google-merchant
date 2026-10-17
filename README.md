@@ -6,7 +6,7 @@ are required. It does not create ads, submit products automatically, or guarante
 Google approval.
 
 Built and tested against **Medusa 2.21.2**, Node.js 22 and npm 11.19.0. Initial
-version 0.1.0 is pre-release; support for other Medusa versions is not claimed.
+version 0.1.0-rc.1 is pre-release; support for other Medusa versions is not claimed.
 
 ## Install
 
@@ -26,7 +26,7 @@ In the Medusa backend project, install the resulting tarball (or an eventual
 published version), then register it:
 
 ```sh
-npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0.tgz
+npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0-rc.1.tgz
 ```
 
 ```ts
@@ -51,8 +51,9 @@ plugins: [{
 Use a public Store API publishable key scoped to the intended sales channel.
 `backendUrl` is the reachable API origin; use a public HTTPS origin when using the
 admin feed link directly. It is never a private Admin API key. Keep real runtime
-values outside Git. Configuration requires valid origins and a publishable key,
-even when the feed is disabled, so mistakes fail at startup.
+values outside Git. When the plugin hosts the feed, configuration requires valid origins and a
+publishable key even when disabled, so mistakes fail at startup. External
+storefront mode below does not need a backend key.
 
 Build/restart through your application's normal release process. No database
 migration or catalogue rewrite is required. Do not configure a second module
@@ -79,11 +80,19 @@ An enabled feed returns XML; disabled feeds return 404. Unexpected upstream erro
 return 503, never a successful empty feed. Local/test/staging storefront hosts
 are blocked; for other preview hostnames always keep `enabled: false`.
 
-For a Next.js storefront origin, use a thin server-side proxy at the same path
-if required. Forward no visitor cookies/authorization and preserve failure
-statuses, no-store and XML content type. Alternatively, register the backend XML
-URL directly in Merchant Center. The backend plugin cannot install routes into
-an independently deployed storefront.
+## Separate storefronts
+
+When the storefront owns the public feed, register the backend plugin with
+`externalFeed: true` and `storefrontUrl`. Backend URL/publishable key are not
+required in this mode. Admin links to the storefront feed and reports its state
+as externally managed; the backend XML endpoint stays disabled.
+
+Install the same pinned package in the storefront and import `loadMerchantFeed`
+from `@jverhoeks/medusa-google-merchant/loader`, with validated market options from
+`@jverhoeks/medusa-google-merchant/options`. The storefront supplies its own
+anonymous backend URL/publishable key and retains enable/preview guards. Never
+pass visitor authentication or cookies. Core feed imports support React 19
+storefronts; the admin extension is tested in Medusa's React 18 dashboard.
 
 ## Feed rules
 

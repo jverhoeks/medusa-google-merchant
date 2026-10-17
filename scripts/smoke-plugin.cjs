@@ -27,6 +27,7 @@ module.exports = defineConfig({
     http: { storeCors: "http://localhost:9000", adminCors: "http://localhost:9000", authCors: "http://localhost:9000", jwtSecret: "merchant_fixture_only", cookieSecret: "merchant_fixture_only" },
   },
   plugins: [{ resolve: "@jverhoeks/medusa-google-merchant", options: {
+    externalFeed: process.env.MERCHANT_FIXTURE_EXTERNAL === "true",
     enabled: true, storefrontUrl: "https://shop.example", backendUrl: "http://localhost:9000",
     publishableKey: process.env.MERCHANT_FIXTURE_KEY || "pk_fixture_pending", title: "Fixture Shop",
   } }],
@@ -117,6 +118,14 @@ async function main() {
   assert.equal(after.status,"published")
   await api(`/admin/google-merchant/products/${product.id}`,{enabled:false})
   assert.doesNotMatch(await feed(),/<item>/)
-  console.log("Packaged plugin loaded; admin auth enforced; real product enable/disable changes XML; other metadata preserved")
+  env.MERCHANT_FIXTURE_EXTERNAL = "true"
+  await stop()
+  await boot()
+  const external = await api("/admin/google-merchant")
+  assert.equal(external.enabled, null)
+  assert.equal(external.feed_managed_externally, true)
+  assert.equal(external.feed_url, "https://shop.example/google-merchant.xml")
+  assert.equal((await fetch("http://localhost:9000/google-merchant.xml")).status,404)
+  console.log("Packaged plugin loaded; external storefront settings verified; admin auth enforced; real product enable/disable changes XML; other metadata preserved")
 }
 main().catch(error => { console.error(error.message);process.exitCode=1 }).finally(stop)
