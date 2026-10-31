@@ -5,8 +5,8 @@ selection switch inside Medusa Admin. No Google API credentials or paid connecto
 are required. It does not create ads, submit products automatically, or guarantee
 Google approval.
 
-Built and tested against **Medusa 2.21.2**, Node.js 22 and npm 11.19.0. Initial
-version 0.1.0-rc.2 is pre-release; support for other Medusa versions is not claimed.
+Built and tested against **Medusa 2.22.1**, Node.js 22 and npm 11.19.0. Initial
+version 0.1.0-rc.3 is pre-release; support for other Medusa versions is not claimed.
 
 ## Install
 
@@ -27,7 +27,7 @@ In the Medusa backend project, install the resulting tarball (or an eventual
 published version), then register it:
 
 ```sh
-npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0-rc.2.tgz
+npm install /path/to/jverhoeks-medusa-google-merchant-0.1.0-rc.3.tgz
 ```
 
 ```ts

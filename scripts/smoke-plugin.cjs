@@ -15,7 +15,7 @@ mkdirSync(installed, { recursive: true })
 execFileSync("tar", ["-xzf", join(root, archive), "-C", installed, "--strip-components=1"])
 const fixture = mkdtempSync(join(tmpdir(), "merchant-plugin-"))
 symlinkSync(join(root, "node_modules"), join(fixture, "node_modules"), "dir")
-writeFileSync(join(fixture, "package.json"), JSON.stringify({ name: "merchant-plugin-fixture", version: "0.0.0", dependencies: { "@medusajs/medusa": "2.21.2" } }))
+writeFileSync(join(fixture, "package.json"), JSON.stringify({ name: "merchant-plugin-fixture", version: "0.0.0", dependencies: { "@medusajs/medusa": "2.22.1" } }))
 writeFileSync(join(fixture, "tsconfig.json"), readFileSync(join(root, "tsconfig.json")))
 mkdirSync(join(fixture, "src"))
 writeFileSync(join(fixture, "medusa-config.ts"), `

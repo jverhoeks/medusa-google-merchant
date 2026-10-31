@@ -16,7 +16,7 @@ writeFileSync(join(directory,"package.json"),JSON.stringify({
   license:pkg.license,author:pkg.author,repository:pkg.repository,
   engines:pkg.engines,files:["*.js","*.d.ts","README.md","LICENSE"],
   exports:{"./core":"./feed.js","./loader":"./loader.js","./options":"./options.js","./package.json":"./package.json"},
-  peerDependencies:{"@medusajs/types":"2.21.2"},
+  peerDependencies:{"@medusajs/types":"2.22.1"},
   typesVersions:{"*":{"core":["feed.d.ts"],"loader":["loader.d.ts"],"options":["options.d.ts"]}},
 },null,2)+"\n")
 execFileSync("npm",["pack","--pack-destination",root],{cwd:directory,stdio:"inherit"})
